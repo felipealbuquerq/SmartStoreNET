@@ -14,30 +14,30 @@ namespace SmartStore.Web.Infrastructure
 {
     public class DependencyRegistrar : IDependencyRegistrar
     {
-		public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, bool isActiveModule)
+        public virtual void Register(ContainerBuilder builder, ITypeFinder typeFinder, bool isActiveModule)
         {
-			//we cache presentation models between requests
-			builder.RegisterType<BlogController>().WithStaticCache();
-			builder.RegisterType<CatalogController>().WithStaticCache();
-			builder.RegisterType<CountryController>().WithStaticCache();
-			builder.RegisterType<CommonController>().WithStaticCache();
-			builder.RegisterType<NewsController>().WithStaticCache();
-			builder.RegisterType<PollController>().WithStaticCache();
-			builder.RegisterType<ShoppingCartController>().WithStaticCache();
-			builder.RegisterType<TopicController>().WithStaticCache();
+            //we cache presentation models between requests
+            builder.RegisterType<BlogController>().WithStaticCache();
+            builder.RegisterType<CatalogController>().WithStaticCache();
+            builder.RegisterType<CountryController>().WithStaticCache();
+            builder.RegisterType<CommonController>().WithStaticCache();
+            builder.RegisterType<NewsController>().WithStaticCache();
+            builder.RegisterType<PollController>().WithStaticCache();
+            builder.RegisterType<ShoppingCartController>().WithStaticCache();
+            builder.RegisterType<TopicController>().WithStaticCache();
 
-			builder.RegisterType<CatalogHelper>().InstancePerRequest();
+            builder.RegisterType<CatalogHelper>().InstancePerRequest();
 
-			builder.RegisterType<DefaultWidgetSelector>().As<IWidgetSelector>().InstancePerRequest();
-            
+            builder.RegisterType<DefaultWidgetSelector>().As<IWidgetSelector>().InstancePerRequest();
+
             // installation localization service
             builder.RegisterType<InstallationLocalizationService>().As<IInstallationLocalizationService>().InstancePerRequest();
 
             // register app languages for installation
-			builder.RegisterType<EnUSSeedData>()
+            builder.RegisterType<EnUSSeedData>()
                 .As<InvariantSeedData>()
                 .WithMetadata<InstallationAppLanguageMetadata>(m =>
-                { 
+                {
                     m.For(em => em.Culture, "en-US");
                     m.For(em => em.Name, "English");
                     m.For(em => em.UniqueSeoCode, "en");
@@ -45,7 +45,7 @@ namespace SmartStore.Web.Infrastructure
                 })
                 .InstancePerRequest();
             builder.RegisterType<DeDESeedData>()
-				.As<InvariantSeedData>()
+                .As<InvariantSeedData>()
                 .WithMetadata<InstallationAppLanguageMetadata>(m =>
                 {
                     m.For(em => em.Culture, "de-DE");
@@ -54,6 +54,16 @@ namespace SmartStore.Web.Infrastructure
                     m.For(em => em.FlagImageFileName, "de.png");
                 })
                 .InstancePerRequest();
+            builder.RegisterType<PtBRSeedData>()
+             .As<InvariantSeedData>()
+             .WithMetadata<InstallationAppLanguageMetadata>(m =>
+             {
+                 m.For(em => em.Culture, "pt-BR");
+                 m.For(em => em.Name, "Portugues");
+                 m.For(em => em.UniqueSeoCode, "pt");
+                 m.For(em => em.FlagImageFileName, "br.png");
+             })
+                  .InstancePerRequest();
         }
 
         public int Order
