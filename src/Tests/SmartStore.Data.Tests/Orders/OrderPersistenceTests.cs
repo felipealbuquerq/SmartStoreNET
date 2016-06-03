@@ -26,7 +26,7 @@ namespace SmartStore.Data.Tests.Orders
                 OrderGuid = Guid.NewGuid(),
 				StoreId = 1,
                 Customer = GetTestCustomer(),
-                OrderStatus = OrderStatus.Complete,
+                OrderStatus = OrderStatus.Completo,
                 ShippingStatus = ShippingStatus.Shipped,
                 PaymentStatus = PaymentStatus.Paid,
                 PaymentMethodSystemName = "PaymentMethodSystemName1",
@@ -81,7 +81,7 @@ namespace SmartStore.Data.Tests.Orders
             fromDb.ShouldNotBeNull();
 			fromDb.StoreId.ShouldEqual(1);
             fromDb.Customer.ShouldNotBeNull();
-            fromDb.OrderStatus.ShouldEqual(OrderStatus.Complete);
+            fromDb.OrderStatus.ShouldEqual(OrderStatus.Completo);
             fromDb.ShippingStatus.ShouldEqual(ShippingStatus.Shipped);
             fromDb.PaymentStatus.ShouldEqual(PaymentStatus.Paid);
             fromDb.PaymentMethodSystemName.ShouldEqual("PaymentMethodSystemName1");

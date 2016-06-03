@@ -210,7 +210,7 @@ namespace SmartStore.Services.Payments
             if (order.Deleted)
                 return false;  //do not allow for deleted orders
 
-            if (order.OrderStatus == OrderStatus.Cancelled)
+            if (order.OrderStatus == OrderStatus.Cancelado)
                 return false;  //do not allow for cancelled orders
 
             if (order.PaymentStatus != PaymentStatus.Pending)

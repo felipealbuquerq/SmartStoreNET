@@ -111,7 +111,7 @@ namespace SmartStore.Services.Tests.ExportImport
 				{
 					OrderGuid = Guid.NewGuid(),
 					Customer = GetTestCustomer(),
-					OrderStatus = OrderStatus.Complete,
+					OrderStatus = OrderStatus.Completo,
 					ShippingStatus = ShippingStatus.Shipped,
 					PaymentStatus = PaymentStatus.Paid,
 					PaymentMethodSystemName = "PaymentMethodSystemName1",

@@ -10,8 +10,8 @@ namespace SmartStore.Core.Domain.Customers
 			ExchangeRate = 1;
 			PointsForPurchases_Amount = 10;
 			PointsForPurchases_Points = 1;
-			PointsForPurchases_Awarded = OrderStatus.Complete;
-			PointsForPurchases_Canceled = OrderStatus.Cancelled;
+			PointsForPurchases_Awarded = OrderStatus.Completo;
+			PointsForPurchases_Canceled = OrderStatus.Cancelado;
 		}
 		
 		/// <summary>

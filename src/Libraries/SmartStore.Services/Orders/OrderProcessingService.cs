@@ -357,8 +357,8 @@ namespace SmartStore.Services.Orders
             _orderService.UpdateOrder(order);
 
 
-            if (prevOrderStatus != OrderStatus.Complete &&
-                os == OrderStatus.Complete
+            if (prevOrderStatus != OrderStatus.Completo &&
+                os == OrderStatus.Completo
                 && notifyCustomer)
             {
                 //notification
@@ -375,8 +375,8 @@ namespace SmartStore.Services.Orders
                 }
             }
 
-            if (prevOrderStatus != OrderStatus.Cancelled &&
-                os == OrderStatus.Cancelled
+            if (prevOrderStatus != OrderStatus.Cancelado &&
+                os == OrderStatus.Cancelado
                 && notifyCustomer)
             {
                 //notification
@@ -435,33 +435,33 @@ namespace SmartStore.Services.Orders
                 _orderService.UpdateOrder(order);
             }
 
-            if (order.OrderStatus == OrderStatus.Pending)
+            if (order.OrderStatus == OrderStatus.Pendente)
             {
                 if (order.PaymentStatus == PaymentStatus.Authorized ||
                     order.PaymentStatus == PaymentStatus.Paid)
                 {
-                    SetOrderStatus(order, OrderStatus.Processing, false);
+                    SetOrderStatus(order, OrderStatus.Processando, false);
                 }
             }
 
-            if (order.OrderStatus == OrderStatus.Pending)
+            if (order.OrderStatus == OrderStatus.Pendente)
             {
                 if (order.ShippingStatus == ShippingStatus.PartiallyShipped || 
                     order.ShippingStatus == ShippingStatus.Shipped ||
                     order.ShippingStatus == ShippingStatus.Delivered)
                 {
-                    SetOrderStatus(order, OrderStatus.Processing, false);
+                    SetOrderStatus(order, OrderStatus.Processando, false);
                 }
             }
 
-            if (order.OrderStatus != OrderStatus.Cancelled &&
-                order.OrderStatus != OrderStatus.Complete)
+            if (order.OrderStatus != OrderStatus.Cancelado &&
+                order.OrderStatus != OrderStatus.Completo)
             {
                 if (order.PaymentStatus == PaymentStatus.Paid)
                 {
                     if (order.ShippingStatus == ShippingStatus.ShippingNotRequired || order.ShippingStatus == ShippingStatus.Delivered)
                     {
-                        SetOrderStatus(order, OrderStatus.Complete, true);
+                        SetOrderStatus(order, OrderStatus.Completo, true);
                     }
                 }
             }
@@ -1032,7 +1032,7 @@ namespace SmartStore.Services.Orders
                             CustomerCurrencyCode = customerCurrencyCode,
                             CurrencyRate = customerCurrencyRate,
 							AffiliateId = affiliateId,
-                            OrderStatus = OrderStatus.Pending,
+                            OrderStatus = OrderStatus.Pendente,
                             AllowStoringCreditCardNumber = processPaymentResult.AllowStoringCreditCardNumber,
                             CardType = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardType) : string.Empty,
                             CardName = processPaymentResult.AllowStoringCreditCardNumber ? _encryptionService.EncryptText(processPaymentRequest.CreditCardName) : string.Empty,
@@ -1645,7 +1645,7 @@ namespace SmartStore.Services.Orders
             if (customer == null)
                 return false;
 
-            if (initialOrder.OrderStatus == OrderStatus.Cancelled)
+            if (initialOrder.OrderStatus == OrderStatus.Cancelado)
                 return false;
 
             if (!customerToValidate.IsAdmin())
@@ -1783,7 +1783,7 @@ namespace SmartStore.Services.Orders
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            if (order.OrderStatus == OrderStatus.Cancelled)
+            if (order.OrderStatus == OrderStatus.Cancelado)
                 return false;
 
             return true;
@@ -1803,7 +1803,7 @@ namespace SmartStore.Services.Orders
                 throw new SmartException("Cannot do cancel for order.");
 
             //Cancel order
-            SetOrderStatus(order, OrderStatus.Cancelled, notifyCustomer);
+            SetOrderStatus(order, OrderStatus.Cancelado, notifyCustomer);
 
             //add a note
             order.OrderNotes.Add(new OrderNote()
@@ -1839,7 +1839,7 @@ namespace SmartStore.Services.Orders
 
 			context.RewardPointsOld = context.RewardPointsNew = oi.Order.Customer.GetRewardPointsBalance();
 
-			if (context.UpdateTotals && oi.Order.OrderStatusId <= (int)OrderStatus.Pending)
+			if (context.UpdateTotals && oi.Order.OrderStatusId <= (int)OrderStatus.Pendente)
 			{
 				decimal priceInclTax = Round(context.QuantityNew * oi.UnitPriceInclTax);
 				decimal priceExclTax = Round(context.QuantityNew * oi.UnitPriceExclTax);
@@ -1902,7 +1902,7 @@ namespace SmartStore.Services.Orders
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            if (order.OrderStatus == OrderStatus.Cancelled)
+            if (order.OrderStatus == OrderStatus.Cancelado)
                 return false;
 
             if (order.PaymentStatus == PaymentStatus.Pending)
@@ -1947,7 +1947,7 @@ namespace SmartStore.Services.Orders
 			if (order == null)
 				throw new ArgumentNullException("order");
 
-			return (order.OrderStatus != OrderStatus.Complete && order.OrderStatus != OrderStatus.Cancelled);
+			return (order.OrderStatus != OrderStatus.Completo && order.OrderStatus != OrderStatus.Cancelado);
 		}
 
 		/// <summary>
@@ -1985,8 +1985,8 @@ namespace SmartStore.Services.Orders
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            if (order.OrderStatus == OrderStatus.Cancelled ||
-                order.OrderStatus == OrderStatus.Pending)
+            if (order.OrderStatus == OrderStatus.Cancelado ||
+                order.OrderStatus == OrderStatus.Pendente)
                 return false;
 
             if (order.PaymentStatus == PaymentStatus.Authorized &&
@@ -2091,7 +2091,7 @@ namespace SmartStore.Services.Orders
             if (order == null)
                 throw new ArgumentNullException("order");
 
-            if (order.OrderStatus == OrderStatus.Cancelled)
+            if (order.OrderStatus == OrderStatus.Cancelado)
                 return false;
 
             if (order.PaymentStatus == PaymentStatus.Paid ||
@@ -2678,7 +2678,7 @@ namespace SmartStore.Services.Orders
             if (order == null || order.Deleted)
                 return false;
 
-            if (order.OrderStatus != OrderStatus.Complete)
+            if (order.OrderStatus != OrderStatus.Completo)
                 return false;
 
             bool numberOfDaysReturnRequestAvailableValid = false;

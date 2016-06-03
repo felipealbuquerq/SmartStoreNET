@@ -1217,7 +1217,7 @@ namespace SmartStore.AmazonPay.Services
 				var query =
 					from x in _orderRepository.Table
 					where x.PaymentMethodSystemName == AmazonPayCore.SystemName && x.CreatedOnUtc > isTooOld &&
-						!x.Deleted && x.OrderStatusId < (int)OrderStatus.Complete && x.PaymentStatusId != (int)PaymentStatus.Voided
+						!x.Deleted && x.OrderStatusId < (int)OrderStatus.Completo && x.PaymentStatusId != (int)PaymentStatus.Voided
 					orderby x.Id descending
 					select x;
 

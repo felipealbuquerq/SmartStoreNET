@@ -227,7 +227,7 @@ namespace SmartStore.Services.Tests.Orders
                         order.OrderStatus = os;
                         order.PaymentStatus = ps;
                         order.ShippingStatus = ss;
-                        if (os != OrderStatus.Cancelled)
+                        if (os != OrderStatus.Cancelado)
                             _orderProcessingService.CanCancelOrder(order).ShouldBeTrue();
                         else
                             _orderProcessingService.CanCancelOrder(order).ShouldBeFalse();
@@ -245,7 +245,7 @@ namespace SmartStore.Services.Tests.Orders
                         order.OrderStatus = os;
                         order.PaymentStatus = ps;
                         order.ShippingStatus = ss;
-                        if (os != OrderStatus.Cancelled && ps == PaymentStatus.Pending)
+                        if (os != OrderStatus.Cancelado && ps == PaymentStatus.Pending)
                             _orderProcessingService.CanMarkOrderAsAuthorized(order).ShouldBeTrue();
                         else
                             _orderProcessingService.CanMarkOrderAsAuthorized(order).ShouldBeFalse();
@@ -269,7 +269,7 @@ namespace SmartStore.Services.Tests.Orders
                         order.PaymentStatus = ps;
                         order.ShippingStatus = ss;
 
-                        if ((os != OrderStatus.Cancelled && os != OrderStatus.Pending)
+                        if ((os != OrderStatus.Cancelado && os != OrderStatus.Pendente)
                             && (ps == PaymentStatus.Authorized))
                             _orderProcessingService.CanCapture(order).ShouldBeTrue();
                         else
@@ -301,7 +301,7 @@ namespace SmartStore.Services.Tests.Orders
                         order.OrderStatus = os;
                         order.PaymentStatus = ps;
                         order.ShippingStatus = ss;
-                        if (os == OrderStatus.Cancelled
+                        if (os == OrderStatus.Cancelado
                             || (ps == PaymentStatus.Paid || ps == PaymentStatus.Refunded || ps == PaymentStatus.Voided))
                             _orderProcessingService.CanMarkOrderAsPaid(order).ShouldBeFalse();
                         else

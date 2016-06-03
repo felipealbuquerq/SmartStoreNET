@@ -1497,7 +1497,7 @@ namespace SmartStore.Admin.Controllers
             var model = new CustomerReportsModel();
             //customers by number of orders
             model.BestCustomersByNumberOfOrders = new BestCustomersReportModel();
-            model.BestCustomersByNumberOfOrders.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
+            model.BestCustomersByNumberOfOrders.AvailableOrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
             model.BestCustomersByNumberOfOrders.AvailableOrderStatuses.Insert(0, new SelectListItem() { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });
             model.BestCustomersByNumberOfOrders.AvailablePaymentStatuses = PaymentStatus.Pending.ToSelectList(false).ToList();
             model.BestCustomersByNumberOfOrders.AvailablePaymentStatuses.Insert(0, new SelectListItem() { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });
@@ -1506,7 +1506,7 @@ namespace SmartStore.Admin.Controllers
 
             //customers by order total
             model.BestCustomersByOrderTotal = new BestCustomersReportModel();
-            model.BestCustomersByOrderTotal.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
+            model.BestCustomersByOrderTotal.AvailableOrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
             model.BestCustomersByOrderTotal.AvailableOrderStatuses.Insert(0, new SelectListItem() { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });
             model.BestCustomersByOrderTotal.AvailablePaymentStatuses = PaymentStatus.Pending.ToSelectList(false).ToList();
             model.BestCustomersByOrderTotal.AvailablePaymentStatuses.Insert(0, new SelectListItem() { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });

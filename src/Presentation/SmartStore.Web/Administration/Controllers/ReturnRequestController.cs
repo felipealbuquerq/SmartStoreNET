@@ -155,8 +155,8 @@ namespace SmartStore.Admin.Controllers
 			model.AutoUpdateOrderItem.Id = returnRequest.Id;
 			model.AutoUpdateOrderItem.Caption = _localizationService.GetResource("Admin.ReturnRequests.Accept.Caption");
 			model.AutoUpdateOrderItem.PostUrl = urlHelper.Action("Accept", "ReturnRequest");
-			model.AutoUpdateOrderItem.ShowUpdateTotals = (orderItem.Order.OrderStatusId <= (int)OrderStatus.Pending);
-			model.AutoUpdateOrderItem.ShowUpdateRewardPoints = (orderItem.Order.OrderStatusId > (int)OrderStatus.Pending && orderItem.Order.RewardPointsWereAdded);
+			model.AutoUpdateOrderItem.ShowUpdateTotals = (orderItem.Order.OrderStatusId <= (int)OrderStatus.Pendente);
+			model.AutoUpdateOrderItem.ShowUpdateRewardPoints = (orderItem.Order.OrderStatusId > (int)OrderStatus.Pendente && orderItem.Order.RewardPointsWereAdded);
 			model.AutoUpdateOrderItem.UpdateTotals = model.AutoUpdateOrderItem.ShowUpdateTotals;
 			model.AutoUpdateOrderItem.UpdateRewardPoints = orderItem.Order.RewardPointsWereAdded;
 

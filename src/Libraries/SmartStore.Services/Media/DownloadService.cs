@@ -127,7 +127,7 @@ namespace SmartStore.Services.Media
                 return false;
 
             //order status
-            if (order.OrderStatus == OrderStatus.Cancelled)
+            if (order.OrderStatus == OrderStatus.Cancelado)
                 return false;
 
             var product = orderItem.Product;

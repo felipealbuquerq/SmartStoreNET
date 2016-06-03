@@ -8,18 +8,18 @@ namespace SmartStore.Core.Domain.Orders
         /// <summary>
         /// Pending
         /// </summary>
-        Pending = 10,
+        Pendente = 10,
         /// <summary>
         /// Processing
         /// </summary>
-        Processing = 20,
+        Processando = 20,
         /// <summary>
         /// Complete
         /// </summary>
-        Complete = 30,
+        Completo = 30,
         /// <summary>
         /// Cancelled
         /// </summary>
-        Cancelled = 40
+        Cancelado = 40
     }
 }

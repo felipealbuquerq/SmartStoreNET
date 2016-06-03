@@ -73,7 +73,7 @@ namespace SmartStore.DiscountRules
 				request.Customer.Id,
 				null,
 				null,
-				new int[] { (int)OrderStatus.Complete },
+				new int[] { (int)OrderStatus.Completo },
 				null,
 				null,
 				null,

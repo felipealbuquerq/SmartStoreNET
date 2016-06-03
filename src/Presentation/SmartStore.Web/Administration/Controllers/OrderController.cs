@@ -564,9 +564,9 @@ namespace SmartStore.Admin.Controllers
             model.HasDownloadableProducts = hasDownloadableItems;
 
 			model.AutoUpdateOrderItem.Caption = _localizationService.GetResource("Admin.Orders.EditOrderDetails");
-			model.AutoUpdateOrderItem.ShowUpdateTotals = (order.OrderStatusId <= (int)OrderStatus.Pending);
+			model.AutoUpdateOrderItem.ShowUpdateTotals = (order.OrderStatusId <= (int)OrderStatus.Pendente);
 			// UpdateRewardPoints only visible for unpending orders (see RewardPointsSettingsValidator).
-			model.AutoUpdateOrderItem.ShowUpdateRewardPoints = (order.OrderStatusId > (int)OrderStatus.Pending && order.RewardPointsWereAdded);
+			model.AutoUpdateOrderItem.ShowUpdateRewardPoints = (order.OrderStatusId > (int)OrderStatus.Pendente && order.RewardPointsWereAdded);
 			model.AutoUpdateOrderItem.UpdateTotals = model.AutoUpdateOrderItem.ShowUpdateTotals;
 			model.AutoUpdateOrderItem.UpdateRewardPoints = order.RewardPointsWereAdded;
 
@@ -603,7 +603,7 @@ namespace SmartStore.Admin.Controllers
 				TaxRate = unitPriceTaxRate,
 				SubTotalInclTax = unitPriceInclTax,
 				SubTotalExclTax = unitPriceExclTax,
-				ShowUpdateTotals = (order.OrderStatusId <= (int)OrderStatus.Pending),
+				ShowUpdateTotals = (order.OrderStatusId <= (int)OrderStatus.Pendente),
 				AdjustInventory = true,
 				UpdateTotals = true
             };
@@ -786,7 +786,7 @@ namespace SmartStore.Admin.Controllers
             if (!_permissionService.Authorize(StandardPermissionProvider.ManageOrders))
                 return AccessDeniedView();
 
-            model.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
+            model.AvailableOrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
             model.AvailablePaymentStatuses = PaymentStatus.Pending.ToSelectList(false).ToList();
             model.AvailableShippingStatuses = ShippingStatus.NotYetShipped.ToSelectList(false).ToList();
 
@@ -2592,7 +2592,7 @@ namespace SmartStore.Admin.Controllers
             var model = new BestsellersReportModel();
 
             //order statuses
-            model.AvailableOrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
+            model.AvailableOrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
             model.AvailableOrderStatuses.Insert(0, new SelectListItem() { Text = _localizationService.GetResource("Admin.Common.All"), Value = "0" });
 
             //payment statuses
@@ -2693,7 +2693,7 @@ namespace SmartStore.Admin.Controllers
         [HttpPost]
         public ActionResult PendingTodayReport()
         {
-            var report = _orderReportService.OrderAverageReport(0, OrderStatus.Pending);
+            var report = _orderReportService.OrderAverageReport(0, OrderStatus.Pendente);
             var data = new
 			{ 
                 Count = report.CountTodayOrders, 
@@ -2709,10 +2709,10 @@ namespace SmartStore.Admin.Controllers
 			var urlHelper = new UrlHelper(Request.RequestContext);
             var report = new List<OrderAverageReportLineSummary>();
 
-			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Pending));
-			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Processing));
-			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Complete));
-			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Cancelled));
+			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Pendente));
+			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Processando));
+			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Completo));
+			report.Add(_orderReportService.OrderAverageReport(0, OrderStatus.Cancelado));
 
             var model = report.Select(x =>
             {
@@ -2781,13 +2781,13 @@ namespace SmartStore.Admin.Controllers
             });
 
             //pending
-			var osPending = _orderReportService.GetOrderAverageReportLine(0, new int[] { (int)OrderStatus.Pending }, null, null, null, null, null, true);
+			var osPending = _orderReportService.GetOrderAverageReportLine(0, new int[] { (int)OrderStatus.Pendente }, null, null, null, null, null, true);
             model.Add(new OrderIncompleteReportLineModel()
             {
                 Item = _localizationService.GetResource("Admin.SalesReport.Incomplete.TotalIncompleteOrders"),
                 Count = osPending.CountOrders,
                 Total = _priceFormatter.FormatPrice(osPending.SumOrders, true, false),
-				Url = urlHelper.Action("List", "Order", new { OrderStatusIds = (int)OrderStatus.Pending })
+				Url = urlHelper.Action("List", "Order", new { OrderStatusIds = (int)OrderStatus.Pendente })
             });
 
             return model;

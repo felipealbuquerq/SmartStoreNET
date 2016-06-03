@@ -77,7 +77,7 @@ namespace SmartStore.Services.Orders
 				query = query.Where(o => o.StoreId == storeId);
             if (ignoreCancelledOrders)
             {
-                int cancelledOrderStatusId = (int)OrderStatus.Cancelled;
+                int cancelledOrderStatusId = (int)OrderStatus.Cancelado;
                 query = query.Where(o => o.OrderStatusId != cancelledOrderStatusId);
             }
             if (startTimeUtc.HasValue)

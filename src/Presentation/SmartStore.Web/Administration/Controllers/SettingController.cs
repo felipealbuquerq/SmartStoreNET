@@ -693,8 +693,8 @@ namespace SmartStore.Admin.Controllers
 			model.PrimaryStoreCurrencyCode = _currencyService.GetCurrencyById(currencySettings.PrimaryStoreCurrencyId).CurrencyCode;
 
             //gift card activation/deactivation
-            model.GiftCards_Activated_OrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
-            model.GiftCards_Deactivated_OrderStatuses = OrderStatus.Pending.ToSelectList(false).ToList();
+            model.GiftCards_Activated_OrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
+            model.GiftCards_Deactivated_OrderStatuses = OrderStatus.Pendente.ToSelectList(false).ToList();
 
 			AddLocales(_languageService, model.Locales, (locale, languageId) =>
 			{
